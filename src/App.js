@@ -1,32 +1,38 @@
-import api from "./api.js";
-import DarkButton from "./DarkButton.js";
-import Carousel from "./Carousel.js";
-import SearchSection from "./SearchSection.js";
-import SearchResult from "./SearchResult.js";
-import ImageInfo from "./ImageInfo.js";
+import api from './api.js';
+import DarkButton from './DarkButton.js';
+import Carousel from './Carousel.js';
+import SearchSection from './SearchSection.js';
+import SearchResult from './SearchResult.js';
+import ImageInfo from './ImageInfo.js';
 
 export default class App {
-
   constructor($target) {
-
     this.darkButton = new DarkButton($target);
 
     this.Carousel = new Carousel($target);
 
     this.searchSection = new SearchSection({
       $target,
-      onSearch: async (keyword,isRandom) => {
+      onSearch: async (keyword, isRandom) => {
         try {
-          this.searchResult.setState(null, true, false);
+          this.searchResult.setState({
+            data: null,
+            loading: true,
+            error: null,
+          });
           let res = null;
-          if(isRandom) res = await api.fetchCatsRandom();
+          if (isRandom) res = await api.fetchCatsRandom();
           else res = await api.fetchCats(keyword);
 
-          this.searchResult.setState(res.data, false, false);
+          this.searchResult.setState({
+            data: res.data,
+            loading: false,
+            error: null,
+          });
         } catch (e) {
-          this.searchResult.setState(null, false, e);
+          this.searchResult.setState({ data: null, loading: false, error: e });
         }
-      }
+      },
     });
 
     this.searchResult = new SearchResult({
@@ -36,33 +42,27 @@ export default class App {
           this.imageInfo.setState({
             data: null,
             loading: true,
-            error: false,
+            error: null,
           });
 
           let res = await api.fetchCatsID(id);
           this.imageInfo.setState({
             data: res.data,
             loading: false,
-            error: false
+            error: null,
           });
-        } catch(e) {
+        } catch (e) {
           this.imageInfo.setState({
             data: null,
             loading: false,
-            error: e
-          })
-        } 
-      }
+            error: e,
+          });
+        }
+      },
     });
 
     this.imageInfo = new ImageInfo({
       $target,
-      data: {
-        data: null,
-        loading: false,
-        error: false
-      }
     });
   }
-
 }

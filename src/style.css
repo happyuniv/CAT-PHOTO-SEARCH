@@ -16,19 +16,6 @@
     --text-color: white;
   }
 }
-.dark {
-  --background: #000;
-  --text-color: white;
-}
-.dark-button {
-  position: fixed;
-  top: 0;
-  left: 0;
-  border: solid 1px;
-  border-color: gray;
-  cursor: pointer;
-  z-index: 1;
-}
 
 html {
   box-sizing: border-box;
@@ -41,6 +28,21 @@ body {
   transition: background 500ms ease-in-out, color 200ms;
 }
 
+.dark {
+  --background: #000;
+  --text-color: white;
+}
+
+.dark-button {
+  position: fixed;
+  top: 0;
+  right: 0;
+  border: solid 1px;
+  border-color: gray;
+  cursor: pointer;
+  z-index: 1;
+}
+
 #App {
   /* margin: 1.5em auto;
     max-width: 1200px;
@@ -48,43 +50,57 @@ body {
 }
 
 .carousel {
-  overflow: hidden;
-  /* left:10px;
-    top:500px; */
-  /* margin-top: 2rem;  */
-  /* margin-bottom: 100px;  */
+  margin-top: 50px;
+  /* overflow: hidden; */
+}
+
+.carousel .error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: rgba(167, 162, 162, 0.147);
+}
+
+.carousel .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(4, 4, 4, 0.558);
+}
+
+.carousel .spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
 }
 
 .carousel .window {
-  overflow: hidden;
   position: relative;
-  /* top: 30%; */
   left: 50%;
-  /* transform: translateY(-50%); */
+  width: 300px;
+  height: 300px;
   transform: translateX(-50%);
-  /* border: 4px solid red;  */
-  height: 200px;
-  width: 400px;
+  overflow: hidden;
 }
 
 .carousel .container {
   display: flex;
   position: absolute;
-  /* height: 200px; */
-  /* width: 1000px; */
-  /* width:100px; */
-  /* width: auto; */
-  /* border: 4px solid green; */
-  /* left: -125px; */
+  width: 100%;
+  min-height: 100%;
 }
 
-.carousel .container .item {
-  width: 400px;
-  height: 200px;
-  display: inline-block;
-  object-fit: cover;
-  /* margin: 10px 10px; */
-  /* padding-top: 30px */
+.carousel img {
+  width: 100%;
+  height: auto;
 }
 
 .carousel .index-container {
@@ -96,30 +112,36 @@ body {
   height: 20px;
   border: 2px solid;
   border-radius: 10px;
-}
-
-.carousel .button-container {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  /* transform: translateY(-50%); */
-  /* transform: translateX(-50%); */
+  background-color: #e3b854;
 }
 
 .carousel button {
-  font-size: 20px;
-  height: 40px;
-  width: 100px;
-  background-color: #f6e58d;
-  border: 4px solid #555;
-  border-radius: 10px;
-  /* margin-left: 130px; */
-  /* margin-top: 50px; */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border: 1px solid #555;
+  border-radius: 100%;
+  color: gray;
+  font-size: 15px;
+  background-color: rgb(255, 255, 255);
   cursor: pointer;
 }
 
 .carousel button:hover {
   background-color: #e3b854;
+}
+
+.carousel .prev::after {
+  content: '<';
+}
+
+.carousel .next {
+  right: 0;
+}
+.carousel .next::after {
+  content: '>';
 }
 
 .SearchSection .SearchInput {
@@ -138,17 +160,15 @@ body {
 
 .SearchSection .History .keyword {
   margin-left: 10px;
-  cursor: pointer;
   font-size: 30px;
+  cursor: pointer;
 }
 
 .SearchSection .History .delete-keyword {
-  /* margin-left: 5px;
-    color: red; */
-  font-weight: bolder;
+  padding: 5px;
   color: red;
   font-size: 15px;
-  padding: 5px;
+  font-weight: bolder;
   cursor: pointer;
 }
 
@@ -170,54 +190,50 @@ body {
 }
 
 .SearchResult {
-  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(4, minmax(250px, 1fr));
   grid-gap: 10px;
+  margin-top: 20px;
 }
 
 .SearchResult img {
+  display: inline-block;
   width: 100%;
   height: 100%;
-  display: inline-block;
   object-fit: cover;
 }
 
 .SearchResult .item {
-  position: relative;
   display: inline-block;
+  position: relative;
   margin: 0 0 1em;
 }
 
 .SearchResult .search-loading {
-  background-color: yellowgreen;
-  width: 100%;
-  font-size: 30px;
-  color: white;
   position: absolute;
-  /* top: 10%; */
-  /* padding-top: 0px; */
-  /* margin-top: 0px; */
+  width: 100%;
+  color: white;
+  font-size: 30px;
   text-align: center;
+  background-color: yellowgreen;
 }
 .search-error {
-  background-color: yellow;
-  width: 100%;
-  font-size: 30px;
-  color: yellowgreen;
   position: absolute;
+  width: 100%;
+  color: yellowgreen;
+  font-size: 30px;
   text-align: center;
+  background-color: yellow;
 }
 
 .SearchResult .more-loading {
-  background-color: yellow;
-  background-color: yellowgreen;
-  width: 100%;
-  font-size: 50px;
-  color: white;
   position: relative;
   top: 50%;
+  width: 100%;
+  color: white;
+  font-size: 50px;
   text-align: center;
+  background-color: yellowgreen;
 }
 
 .SearchResult .result-none {
@@ -243,44 +259,46 @@ body {
 }
 
 .ImageInfo {
+  display: none;
   position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  display: none;
 }
 
-.ImageInfo .info-loading {
+.ImageInfo .loading-container {
   position: absolute;
-  left: 50%;
   top: 5%;
-  /* transform: translate(-50%, -50%); */
+  left: 50%;
+  transform: translateX(-50%);
+}
+.ImageInfo .info-loading {
   width: 50px;
   height: 50px;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   border-top-color: #fff;
   animation: spin 1s ease-in-out infinite;
-  -webkit-animation: spin 1s ease-in-out infinite;
 }
 @keyframes spin {
   to {
-    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
 .info-error {
   position: fixed;
-  left: 50%;
   top: 10%;
-  font-size: 20px;
-  transform: translate(-50%, -50%);
-  color: chartreuse;
+  left: 50%;
+  padding: 10px;
   border: 1px solid #eee;
   border-radius: 5px;
-  animation: fadeout 4s;
+  color: rgb(255, 81, 0);
+  font-size: 20px;
+  transform: translate(-50%, -50%);
+  animation: fadeout 10s;
 }
 @keyframes fadeout {
   from {
@@ -293,14 +311,14 @@ body {
 
 .ImageInfo .content-wrapper {
   position: absolute;
-  left: 50%;
   top: 50%;
+  left: 50%;
   max-height: 100%;
-  transform: translate(-50%, -50%);
-  background-color: var(--background);
-  color: var(--text-color);
   border: 1px solid #eee;
   border-radius: 5px;
+  color: var(--text-color);
+  transform: translate(-50%, -50%);
+  background-color: var(--background);
 }
 
 .ImageInfo .content-wrapper img {
@@ -320,6 +338,6 @@ body {
 }
 
 .ImageInfo .title .close {
-  cursor: pointer;
   font-size: 30px;
+  cursor: pointer;
 }
